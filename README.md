@@ -1,7 +1,7 @@
 # RetailPulse — AI-Powered Customer Analytics & Demand Forecasting Platform
 # Author: Akshat Anand
 # KIIT University | B.Tech CSE (AI & ML)
-# SZidio Development Internship – Data Science & Analytics
+# Zidio Development Internship – Data Science & Analytics
 
 End-to-end data science project for the Zidio Development internship (Data Science & Analytics domain). RetailPulse analyses retail sales, customer and inventory data to deliver demand forecasts, customer segmentation, churn prediction and inventory reorder recommendations through an interactive Streamlit dashboard.
 
