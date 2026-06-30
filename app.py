@@ -309,16 +309,80 @@ elif page == "🔬 What-If Analysis":
         lead_time_add = st.slider("Extra Lead Time (days)", 0, 14, 0)
     if not inventory.empty:
         inv_adj = inventory.copy()
-        inv_adj["adj_daily_demand"] = inv_adj["daily_demand"] * (1 + demand_mult / 100)
-        inv_adj["adj_days_of_stock"] = (inv_adj["stock_on_hand"] / inv_adj["adj_daily_demand"].clip(lower=0.01)).round(0)
-        inv_adj["adj_reorder_point"] = (inv_adj["adj_daily_demand"] * (inv_adj["lead_time_days"] + lead_time_add) + inv_adj["safety_stock"]).round(0)
-        inv_adj["adj_status"] = inv_adj.apply(lambda r: "NOW Critical" if r["stock_on_hand"] <= r["adj_reorder_point"] else "Still OK", axis=1)
+
+        inv_adj["adj_daily_demand"] = (
+            inv_adj["daily_demand"] * (1 + demand_mult / 100)
+        )
+
+        inv_adj["adj_days_of_stock"] = (
+            inv_adj["stock_on_hand"] /
+            inv_adj["adj_daily_demand"].clip(lower=0.01)
+        ).round(0)
+
+        # Safe lead time handling - falls back to a default if the column
+        # isn't named exactly "lead_time_days" in inventory_recommendations.csv
+        if "lead_time_days" in inv_adj.columns:
+            lead_time = inv_adj["lead_time_days"]
+        elif "lead_time" in inv_adj.columns:
+            lead_time = inv_adj["lead_time"]
+        else:
+            lead_time = 7
+
+        inv_adj["adj_reorder_point"] = (
+            inv_adj["adj_daily_demand"] *
+            (lead_time + lead_time_add) +
+            inv_adj["safety_stock"]
+        ).round(0)
+
+        inv_adj["adj_status"] = inv_adj.apply(
+            lambda r: "NOW Critical"
+            if r["stock_on_hand"] <= r["adj_reorder_point"]
+            else "Still OK",
+            axis=1,
+        )
+
         newly_critical = inv_adj[inv_adj["adj_status"] == "NOW Critical"]
-        st.warning(f"Under these conditions: {len(newly_critical)} products would need immediate reorder")
+
+        st.warning(
+            f"Under these conditions: {len(newly_critical)} products would need immediate reorder"
+        )
+
         c5, c6 = st.columns(2)
         c5.metric("Products Newly at Risk", len(newly_critical))
-        c6.metric("Avg Days of Stock (adjusted)", f"{inv_adj['adj_days_of_stock'].median():.0f} days")
-        st.dataframe(inv_adj[["product_name", "category", "stock_on_hand", "adj_daily_demand", "adj_days_of_stock",
-                               "adj_reorder_point", "adj_status"]].sort_values("adj_days_of_stock").head(15).reset_index(drop=True), use_container_width=True)
-        csv_download(inv_adj[["product_name", "category", "stock_on_hand", "adj_daily_demand", "adj_days_of_stock", "adj_status"]],
-                     "Download What-If Inventory (CSV)", "whatif_inventory.csv")
+        c6.metric(
+            "Avg Days of Stock (adjusted)",
+            f"{inv_adj['adj_days_of_stock'].median():.0f} days"
+        )
+
+        st.dataframe(
+            inv_adj[
+                [
+                    "product_name",
+                    "category",
+                    "stock_on_hand",
+                    "adj_daily_demand",
+                    "adj_days_of_stock",
+                    "adj_reorder_point",
+                    "adj_status",
+                ]
+            ]
+            .sort_values("adj_days_of_stock")
+            .head(15)
+            .reset_index(drop=True),
+            use_container_width=True,
+        )
+
+        csv_download(
+            inv_adj[
+                [
+                    "product_name",
+                    "category",
+                    "stock_on_hand",
+                    "adj_daily_demand",
+                    "adj_days_of_stock",
+                    "adj_status",
+                ]
+            ],
+            "Download What-If Inventory (CSV)",
+            "whatif_inventory.csv",
+        )
