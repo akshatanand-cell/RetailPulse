@@ -1,0 +1,4 @@
+cluster,recency,frequency,monetary,avg_order_value,online_ratio,category_diversity,rfm_total,size
+0,28.52,31.09,21878.56,708.38,0.6,5.0,6.61,1004
+1,19.0,38.86,30807.97,798.11,0.6,5.0,11.36,963
+2,27.03,28.24,20121.54,710.86,0.6,4.0,6.21,33

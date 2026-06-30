@@ -1,0 +1,63 @@
+name: RetailPulse CI Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-pipeline:
+    name: Test Data Pipeline
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Generate synthetic dataset
+        run: python data/generate_data.py
+      - name: Run data validation
+        run: python notebooks/02a_data_validation.py
+      - name: Run data cleaning
+        run: python notebooks/02b_data_cleaning.py
+      - name: Run segmentation
+        run: python notebooks/03_segmentation.py
+      - name: Run demand forecasting
+        run: python notebooks/04_demand_forecasting.py
+      - name: Run churn prediction
+        run: python notebooks/05_churn_prediction.py
+      - name: Run inventory optimization
+        run: python notebooks/06_inventory_optimization.py
+      - name: Run drift detection
+        run: python notebooks/07_drift_detection.py
+      - name: Validate MAPE target
+        run: |
+          python -c "
+          import pandas as pd
+          metrics = pd.read_csv('reports/forecasting/model_metrics.csv')
+          mape = float(metrics[metrics['metric']=='MAPE']['value'].values[0])
+          print(f'MAPE: {mape}%')
+          assert mape <= 12.0, f'MAPE {mape}% exceeds 12% target'
+          print('MAPE validation: PASSED')
+          "
+      - name: Upload reports as artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: pipeline-reports
+          path: reports/
+          retention-days: 7
+
+  docker-build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    needs: test-pipeline
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build Docker image
+        run: docker build -t retailpulse:latest .

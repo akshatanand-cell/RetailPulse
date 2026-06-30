@@ -1,0 +1,16 @@
+pandas==2.2.0
+numpy==1.26.3
+scikit-learn==1.4.0
+matplotlib==3.8.2
+plotly==5.18.0
+streamlit==1.31.0
+
+# NOTE: xgboost and shap are NOT included here. Both failed to install
+# in the development sandbox used to build this project (no matching
+# wheel available at build time). The churn model uses
+# sklearn.ensemble.GradientBoostingClassifier instead of XGBoost, and
+# sklearn.inspection.permutation_importance instead of SHAP. If you
+# have a working xgboost/shap install locally, the code in
+# notebooks/05_churn_prediction.py can be swapped to use them with
+# the same feature set -- the class-imbalance handling
+# (sample_weight <-> scale_pos_weight) carries over directly.

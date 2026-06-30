@@ -1,0 +1,18 @@
+check,status,detail
+Sales - no missing values,PASS,0 missing values found
+Sales - revenue always positive,PASS,0 rows with non-positive revenue
+Sales - quantity always positive,PASS,0 rows with non-positive quantity
+Sales - no duplicate transaction IDs,PASS,0 duplicate transaction IDs
+Sales - date range valid,PASS,Range: 2022-01-01 to 2024-12-31
+Sales - discount between 0 and 1,PASS,"Min=0.00, Max=0.20"
+Sales - unit price positive,PASS,Min price: Rs.6.44
+Customers - no missing values,PASS,0 missing values
+Customers - age in valid range,PASS,Age range: 18 - 69
+Customers - no duplicate IDs,PASS,0 duplicates
+Sales customer IDs exist in customer table,PASS,0 orphan sales records
+Products - no missing values,PASS,0 missing values
+Products - price greater than cost,PASS,0 products with price <= cost
+Sales product IDs exist in product table,PASS,0 orphan product IDs
+Inventory - no missing values,PASS,0 missing values
+Inventory - stock on hand non-negative,PASS,0 negative stock values
+Inventory - lead time positive,PASS,Lead times: 3 - 20 days

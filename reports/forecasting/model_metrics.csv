@@ -1,0 +1,6 @@
+metric,value
+MAPE,11.76
+RMSE,9457.47
+MAE,7606.22
+forecast_period_start,2025-01-01
+forecast_period_end,2025-01-30

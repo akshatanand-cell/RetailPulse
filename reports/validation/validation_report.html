@@ -1,0 +1,22 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><title>RetailPulse Data Validation</title>
+<style>
+body{font-family:-apple-system,sans-serif;background:#f9fafb;padding:24px;color:#1f2937}
+.header{background:linear-gradient(135deg,#1e3a5f,#2563eb);color:white;padding:24px;border-radius:10px;margin-bottom:20px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.kpi{background:white;border-radius:8px;padding:16px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,0.08)}
+.kpi .val{font-size:2rem;font-weight:700} .kpi .lbl{font-size:0.8rem;color:#6b7280}
+table{width:100%;border-collapse:collapse;background:white;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08)}
+th{background:#1e3a5f;color:white;padding:10px 14px;text-align:left;font-size:0.85rem}
+td{padding:10px 14px;border-bottom:1px solid #e5e7eb;font-size:0.9rem}
+tr:last-child td{border-bottom:none}
+</style></head><body>
+<div class="header"><h2 style="margin:0">RetailPulse - Data Validation Report</h2>
+<p style="margin:4px 0 0;opacity:0.85">Generated: 2026-06-30 05:36 | 17 checks run</p></div>
+<div class="kpis">
+<div class="kpi"><div class="val" style="color:#16a34a">17</div><div class="lbl">Checks Passed</div></div>
+<div class="kpi"><div class="val" style="color:#dc2626">0</div><div class="lbl">Failed (Critical)</div></div>
+<div class="kpi"><div class="val" style="color:#f59e0b">0</div><div class="lbl">Warnings</div></div>
+</div>
+<table><thead><tr><th>Check</th><th>Status</th><th>Detail</th></tr></thead><tbody><tr style="background:#f0fdf4"><td>Sales - no missing values</td><td style="color:#16a34a;font-weight:600">PASS</td><td>0 missing values found</td></tr><tr style="background:#f0fdf4"><td>Sales - revenue always positive</td><td style="color:#16a34a;font-weight:600">PASS</td><td>0 rows with non-positive revenue</td></tr><tr style="background:#f0fdf4"><td>Sales - quantity always positive</td><td style="color:#16a34a;font-weight:600">PASS</td><td>0 rows with non-positive quantity</td></tr><tr style="background:#f0fdf4"><td>Sales - no duplicate transaction IDs</td><td style="color:#16a34a;font-weight:600">PASS</td><td>0 duplicate transaction IDs</td></tr><tr style="background:#f0fdf4"><td>Sales - date range valid</td><td style="color:#16a34a;font-weight:600">PASS</td><td>Range: 2022-01-01 to 2024-12-31</td></tr><tr style="background:#f0fdf4"><td>Sales - discount between 0 and 1</td><td style="color:#16a34a;font-weight:600">PASS</td><td>Min=0.00, Max=0.20</td></tr><tr style="background:#f0fdf4"><td>Sales - unit price positive</td><td style="color:#16a34a;font-weight:600">PASS</td><td>Min price: Rs.6.44</td></tr><tr style="background:#f0fdf4"><td>Customers - no missing values</td><td style="color:#16a34a;font-weight:600">PASS</td><td>0 missing values</td></tr><tr style="background:#f0fdf4"><td>Customers - age in valid range</td><td style="color:#16a34a;font-weight:600">PASS</td><td>Age range: 18 - 69</td></tr><tr style="background:#f0fdf4"><td>Customers - no duplicate IDs</td><td style="color:#16a34a;font-weight:600">PASS</td><td>0 duplicates</td></tr><tr style="background:#f0fdf4"><td>Sales customer IDs exist in customer table</td><td style="color:#16a34a;font-weight:600">PASS</td><td>0 orphan sales records</td></tr><tr style="background:#f0fdf4"><td>Products - no missing values</td><td style="color:#16a34a;font-weight:600">PASS</td><td>0 missing values</td></tr><tr style="background:#f0fdf4"><td>Products - price greater than cost</td><td style="color:#16a34a;font-weight:600">PASS</td><td>0 products with price <= cost</td></tr><tr style="background:#f0fdf4"><td>Sales product IDs exist in product table</td><td style="color:#16a34a;font-weight:600">PASS</td><td>0 orphan product IDs</td></tr><tr style="background:#f0fdf4"><td>Inventory - no missing values</td><td style="color:#16a34a;font-weight:600">PASS</td><td>0 missing values</td></tr><tr style="background:#f0fdf4"><td>Inventory - stock on hand non-negative</td><td style="color:#16a34a;font-weight:600">PASS</td><td>0 negative stock values</td></tr><tr style="background:#f0fdf4"><td>Inventory - lead time positive</td><td style="color:#16a34a;font-weight:600">PASS</td><td>Lead times: 3 - 20 days</td></tr></tbody></table>
+<p style="text-align:center;color:#9ca3af;font-size:0.8rem;margin-top:16px">RetailPulse - Zidio Development - Data Validation - 2026</p>
+</body></html>

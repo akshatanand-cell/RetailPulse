@@ -1,0 +1,5 @@
+metric,value
+AUC_ROC,0.9491
+Precision_Top20pct,0.0933
+Churn_Rate_pct,1.8
+High_Risk_Customers,39.0
